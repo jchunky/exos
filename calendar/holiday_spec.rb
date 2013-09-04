@@ -2,7 +2,7 @@ require_relative 'holiday'
 
 describe Calendar::Holiday do
 
-  subject { stub.extend(Calendar::Holiday) }
+  subject { double.extend(Calendar::Holiday) }
 
   let(:now) { Time.now.utc }
 
