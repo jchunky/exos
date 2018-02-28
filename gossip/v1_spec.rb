@@ -1,6 +1,7 @@
 require_relative 'v1'
 require 'rack/test'
 require 'json'
+require 'active_support/all'
 
 class TestGossipV1 < GossipV1; end
 
