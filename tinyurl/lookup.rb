@@ -26,7 +26,7 @@ module Tinyurl
   end
 
   def self.endpoint
-    "http://is.gd/create.php"
+    "https://is.gd/create.php"
   end
 
   def self.environment
@@ -45,9 +45,9 @@ module Tinyurl
 
   def self.lookup(url)
     begin
-      timeout(5) do
+      Timeout.timeout(5) do
         uri = URI.parse(endpoint_with(url))
-        res = Net::HTTP.start(uri.host, uri.port) do |http|
+        res = Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
           http.get("#{uri.path}?#{uri.query}")
         end
         if (200..299).include?(res.code.to_i)

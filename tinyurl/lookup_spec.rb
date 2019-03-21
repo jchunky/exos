@@ -7,7 +7,7 @@ describe Tinyurl do
   end
 
   it "works" do
-    Tinyurl.get("http://kytrinyx.com").should eq("http://is.gd/5rzpAN")
+    Tinyurl.get("http://kytrinyx.com").should eq("https://is.gd/2RNxXq")
   end
 
   it "caches" do
@@ -40,7 +40,7 @@ describe Tinyurl do
 
   it "works in staging, too" do
     Tinyurl.stub(:environment => 'staging')
-    Tinyurl.get("http://kytrinyx.com").should == 'http://is.gd/5rzpAN'
+    Tinyurl.get("http://kytrinyx.com").should == 'https://is.gd/2RNxXq'
   end
 
   it "doesn't actually work in development" do
