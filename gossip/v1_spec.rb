@@ -14,18 +14,15 @@ describe "Gossip" do
 
   # These are more like observations than tests.
 
-  before(:all) do
-    begin
-      Gossip.cache.set('running', true)
-    rescue Dalli::RingError => e
-      fail "You need to have memcached running"
-    end
-  end
-
   let(:alice) { stub(:email => 'alice@example.com', :full_name => 'Alice Smith') }
   let(:e_card) { Gossip::ECard.new(:id => 42, :recipient => 'Bob Smith', :created_by => alice) }
 
-  before(:each) do
+  before do
+    @cache_values = {}
+    @cache = stub
+    @cache.stub(:set) { |key, value| @cache_values[key] = value }
+    @cache.stub(:get) { |key| @cache_values[key] }
+    Gossip.stub(:cache) { @cache }
     Gossip::Sharing.stub(:cache_expiration => 1)
     Gossip::ECard.stub(:find => e_card)
   end
