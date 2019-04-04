@@ -7,7 +7,22 @@ describe Tinyurl do
   end
 
   it "works" do
+    result = stub(:code => 200, :body => "https://is.gd/2RNxXq")
+    Net::HTTP.stub(:start => result)
     Tinyurl.get("http://kytrinyx.com").should eq("https://is.gd/2RNxXq")
+  end
+
+  it "doesn't worry about invalid urls" do
+    result = stub(:code => 400)
+    Net::HTTP.stub(:start => result)
+    Tinyurl.get("invalidurl").should eq("invalidurl")
+  end
+
+  it "works in staging, too" do
+    result = stub(:code => 200, :body => "https://is.gd/2RNxXq")
+    Net::HTTP.stub(:start => result)
+    Tinyurl.stub(:environment => 'staging')
+    Tinyurl.get("http://kytrinyx.com").should == 'https://is.gd/2RNxXq'
   end
 
   it "caches" do
@@ -29,18 +44,9 @@ describe Tinyurl do
     ->{ Tinyurl.get("http://something.com") }.should raise_error Tinyurl::InvalidUrlException
   end
 
-  it "doesn't worry about invalid urls" do
-    Tinyurl.get("invalidurl").should eq("invalidurl")
-  end
-
   it "swallows timeouts, returning the unshortened url" do
     Net::HTTP.stub(:start).and_raise(Timeout::Error)
     Tinyurl.get("http://timeout.com").should eq("http://timeout.com")
-  end
-
-  it "works in staging, too" do
-    Tinyurl.stub(:environment => 'staging')
-    Tinyurl.get("http://kytrinyx.com").should == 'https://is.gd/2RNxXq'
   end
 
   it "doesn't actually work in development" do
