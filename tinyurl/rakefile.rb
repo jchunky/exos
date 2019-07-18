@@ -1,3 +1,3 @@
 task :test do
-  system 'rspec .'
+  system 'bundle exec rspec .'
 end
