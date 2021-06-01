@@ -1,13 +1,17 @@
 source "https://rubygems.org"
 
 gem "activesupport"
-gem "guard"
-gem "minitest"
-gem "rake"
-gem "rspec"
-gem "rubocop"
-gem "test-unit"
 
-gem "minitest-reporters"
-# require 'minitest/reporters'
-# Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
+group :development do
+  gem "rake"
+  gem "reek"
+  gem "rubocop"
+  gem "whats_up"
+end
+
+group :test do
+  gem "minitest"
+  gem "minitest-reporters"
+  gem "rspec"
+  gem "test-unit"
+end

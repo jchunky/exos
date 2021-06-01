@@ -1,18 +1,7 @@
 # New cops
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
-  Enabled: true
-Style/ExponentialNotation:
-  Enabled: true
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
 
 # Miscelleneous
 Layout/ExtraSpacing:
@@ -28,11 +17,6 @@ Style/StringLiterals:
 Layout/DefEndAlignment:
   AutoCorrect: true
 Layout/EndAlignment:
-  AutoCorrect: true
-Layout/LineLength:
-  Enabled: true
-  AutoCorrect: true
-Style/NumericPredicate:
   AutoCorrect: true
 
 # Indentation
@@ -72,17 +56,33 @@ Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
 
 # Disable annoyances
+Layout/LineLength:
+  Enabled: false
+Lint/UselessAccessModifier:
+  Enabled: false
 Metrics:
   Enabled: false
 Naming/MethodParameterName:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/EmptyMethod:
+  Enabled: false
 Style/FormatStringToken:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/ModuleFunction:
+  Enabled: false
 Style/MutableConstant:
+  Enabled: false
+Style/NumericPredicate:
+  Enabled: false
+Style/ParallelAssignment:
+  Enabled: false
+Style/RescueModifier:
+  Enabled: false
+Style/StructInheritance:
   Enabled: false
 
 # Class structure
