@@ -33,7 +33,7 @@ module XYZ
     end
 
     def age
-      format("%03d", (file.age || 0)) if file.personal?
+      format("%03d", file.age.to_i) if file.personal?
     end
 
     def noise
