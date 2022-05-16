@@ -13,7 +13,7 @@ ignore(/Gemfile.lock/)
 ignore(/node_modules/)
 
 def print_line(character)
-  puts "\n" + character * 80 + "\n"
+  puts "\n#{character * 80}\n"
 end
 
 watch(/.*\.rb/) do |match|
