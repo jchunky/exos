@@ -58,6 +58,8 @@ Style/TrailingCommaInHashLiteral:
 # Disable annoyances
 Layout/LineLength:
   Enabled: false
+Lint/UnusedMethodArgument:
+  AutoCorrect: false
 Lint/UselessAccessModifier:
   Enabled: false
 Metrics:
@@ -65,6 +67,8 @@ Metrics:
 Naming/MethodParameterName:
   Enabled: false
 Style/Documentation:
+  Enabled: false
+Style/EmptyCaseCondition:
   Enabled: false
 Style/EmptyMethod:
   Enabled: false
