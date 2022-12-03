@@ -76,6 +76,12 @@ Style/FormatStringToken:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/IdenticalConditionalBranches:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/ModuleFunction:
   Enabled: false
 Style/MutableConstant:
@@ -85,6 +91,8 @@ Style/NumericPredicate:
 Style/ParallelAssignment:
   Enabled: false
 Style/RescueModifier:
+  Enabled: false
+Style/SoleNestedConditional:
   Enabled: false
 Style/StructInheritance:
   Enabled: false
