@@ -25,11 +25,11 @@ module XYZ
     end
 
     def kind
-      file.kind.gsub("_", "")
+      file.kind.delete("_")
     end
 
     def age
-      format("%03d", (file.age || 0)) if file.personal?
+      format("%03d", file.age || 0) if file.personal?
     end
 
     def noise
@@ -37,9 +37,7 @@ module XYZ
     end
 
     def title
-      truncated_title = file.title.gsub(/[^\[a-z\]]/i, "").downcase
-      truncate_to = [truncated_title.length, 9].min
-      (truncated_title[0..(truncate_to)])
+      file.title.downcase.gsub(/[^\[a-z\]]/, "")[0, 10]
     end
   end
 end
