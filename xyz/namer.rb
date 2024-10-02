@@ -1,4 +1,4 @@
-require "digest"
+require "securerandom"
 
 module XYZ
   class Namer < Struct.new(:file)
@@ -29,15 +29,19 @@ module XYZ
     end
 
     def age
-      format("%03d", file.age || 0) if file.personal?
+      format("%03d", file.age.to_i) if file.personal?
     end
 
     def noise
-      Digest::SHA1.hexdigest(rand(10_000).to_s)[0, 8]
+      @noise ||= random_hex(8)
     end
 
     def title
       file.title.downcase.gsub(/[^\[a-z\]]/, "")[0, 10]
+    end
+
+    def random_hex(length)
+      SecureRandom.hex(length / 2)
     end
   end
 end
