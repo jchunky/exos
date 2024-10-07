@@ -26,7 +26,7 @@ module XYZ
     end
 
     def kind
-      file.kind.tr("_", "")
+      file.kind.delete("_")
     end
 
     def age
