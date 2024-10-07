@@ -7,7 +7,8 @@ module XYZ
     end
 
     def filename
-      [prefix, age, file_id, noise, title].compact.join("_").concat(".jpg")
+      parts = [prefix, age, file_id, noise, title].compact
+      parts.join("_").concat(".jpg")
     end
 
     private
@@ -39,15 +40,19 @@ module XYZ
     end
 
     def noise
-      random_hex(8)
+      generate_random_hex(8)
     end
 
-    def random_hex(length)
+    def generate_random_hex(length)
       SecureRandom.hex(length / 2)
     end
 
     def title
-      file.title.downcase.gsub(/[^\[a-z\]]/, "")[0, 10]
+      sanitized_title[0, 10]
+    end
+
+    def sanitized_title
+      file.title.downcase.gsub(/[^\[a-z\]]/, "")
     end
   end
 end
