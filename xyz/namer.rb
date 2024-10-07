@@ -30,9 +30,7 @@ module XYZ
     end
 
     def age
-      return unless file.personal?
-
-      format("%03d", file.age || 0)
+      format("%03d", file.age.to_i) if file.personal?
     end
 
     def file_id
