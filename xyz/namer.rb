@@ -1,25 +1,48 @@
-require 'digest'
+require "securerandom"
 
 module XYZ
-  module Namer
-
-    def self.xyz_filename(target)
-      # File format:
-      # [day of month zero-padded][three-letter prefix] \
-      # _[kind]_[age_if_kind_personal]_[target.id] \
-      # _[8 random chars]_[10 first chars of title].jpg
-      filename = "#{target.publish_on.strftime("%d")}"
-      filename << "#{target.xyz_category_prefix}"
-      filename << "#{target.kind.gsub("_", "")}"
-      filename << "_%03d" % (target.age || 0) if target.personal?
-      filename << "_#{target.id.to_s}"
-      filename << "_#{Digest::SHA1.hexdigest(rand(10000).to_s)[0,8]}"
-      truncated_title = target.title.gsub(/[^\[a-z\]]/i, '').downcase
-      truncate_to = truncated_title.length > 9 ? 9 : truncated_title.length
-      filename << "_#{truncated_title[0..(truncate_to)]}"
-      filename << ".jpg"
-      return filename
+  class Namer < Struct.new(:file)
+    def self.xyz_filename(file)
+      new(file).filename
     end
 
+    def filename
+      parts = [prefix, age, file.id, noise, title]
+      parts.compact.join("_").concat(".jpg")
+    end
+
+    private
+
+    def prefix
+      [publication_day, category, kind].join
+    end
+
+    def publication_day
+      file.publish_on.strftime("%d")
+    end
+
+    def category
+      file.xyz_category_prefix
+    end
+
+    def kind
+      file.kind.delete("_")
+    end
+
+    def age
+      format("%03d", file.age.to_i) if file.personal?
+    end
+
+    def noise
+      SecureRandom.hex(4) # Generates 8 characters (4 bytes)
+    end
+
+    def title
+      sanitized_title[0, 10]
+    end
+
+    def sanitized_title
+      file.title.downcase.gsub(/[^\[a-z\]]/, "")
+    end
   end
 end
