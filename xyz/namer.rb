@@ -16,7 +16,7 @@ module XYZ
     def publication_day = file.publish_on.strftime("%d")
     def category        = file.xyz_category_prefix
     def kind            = file.kind.delete("_")
-    def age             = (format("%03d", file.age.to_i) if file.personal?)
+    def age             = file.personal? ? format("%03d", file.age.to_i) : nil
     def noise           = SecureRandom.hex(4)
     def title           = sanitized_title[0, 10]
     def sanitized_title = file.title.downcase.gsub(/[^\[a-z\]]/, "")
