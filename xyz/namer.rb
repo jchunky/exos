@@ -7,42 +7,18 @@ module XYZ
     end
 
     def filename
-      parts = [prefix, age, file.id, noise, title]
-      parts.compact.join("_").concat(".jpg")
+      [prefix, age, file.id, noise, title].compact.join("_").concat(".jpg")
     end
 
     private
 
-    def prefix
-      [publication_day, category, kind].join
-    end
-
-    def publication_day
-      file.publish_on.strftime("%d")
-    end
-
-    def category
-      file.xyz_category_prefix
-    end
-
-    def kind
-      file.kind.delete("_")
-    end
-
-    def age
-      format("%03d", file.age.to_i) if file.personal?
-    end
-
-    def noise
-      SecureRandom.hex(4) # Generates 8 characters (4 bytes)
-    end
-
-    def title
-      sanitized_title[0, 10]
-    end
-
-    def sanitized_title
-      file.title.downcase.gsub(/[^\[a-z\]]/, "")
-    end
+    def prefix = [publication_day, category, kind].join
+    def publication_day = file.publish_on.strftime("%d")
+    def category = file.xyz_category_prefix
+    def kind = file.kind.delete("_")
+    def age = (format("%03d", file.age.to_i) if file.personal?)
+    def noise = SecureRandom.hex(4)
+    def title = sanitized_title[0, 10]
+    def sanitized_title = file.title.downcase.gsub(/[^\[a-z\]]/, "")
   end
 end
