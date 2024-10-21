@@ -27,13 +27,13 @@ describe XYZ::Namer do
 
   it "personalizes" do
     target[:personal?] = true
-    target.age = 42
+    target.age         = 42
     expect(subject).to match(/07abcmagicunicorn_042_1337_[0-9a-f]{8}_isparklysp\.jpg/)
   end
 
   it "handles nil age" do
     target[:personal?] = true
-    target.age = nil
+    target.age         = nil
     expect(subject).to match(/07abcmagicunicorn_000_1337_[0-9a-f]{8}_isparklysp\.jpg/)
   end
 
