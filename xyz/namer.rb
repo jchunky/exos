@@ -2,8 +2,10 @@ require "securerandom"
 
 module XYZ
   Namer = Data.define(:file) do
-    def self.xyz_filename(file)
-      new(file).filename
+    class << self
+      def xyz_filename(file)
+        new(file).filename
+      end
     end
 
     def filename
