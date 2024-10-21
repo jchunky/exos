@@ -1,15 +1,9 @@
 require "securerandom"
 
 module XYZ
-  class Namer
-    attr_reader :file
-
+  Namer = Data.define(:file) do
     def self.xyz_filename(file)
       new(file).filename
-    end
-
-    def initialize(file)
-      @file = file
     end
 
     def filename
@@ -23,7 +17,7 @@ module XYZ
     def category = file.xyz_category_prefix
     def kind = file.kind.delete("_")
     def age = file.personal? ? format("%03d", file.age.to_i) : nil
-    def noise = @noise ||= SecureRandom.hex(4)
+    def noise = SecureRandom.hex(4)
     def title = sanitized_title[0, 10]
     def sanitized_title = file.title.downcase.gsub(/[^\[a-z\]]/, "")
   end
