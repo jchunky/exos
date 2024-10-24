@@ -1,3 +1,0 @@
-#!/bin/bash
-
-RUBYOPT=-W0 bundle exec rspec . && flog e_card.rb email.rb sharing.rb v1.rb
